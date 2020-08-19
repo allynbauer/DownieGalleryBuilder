@@ -21,6 +21,7 @@ class GalleryRenderer
 	
 	def run
 		if parsed_options?
+			configure_environment
 			execute
 		else
 			output_usage
@@ -79,6 +80,15 @@ class GalleryRenderer
 		result = result.select(&:has_result)
 		result.each(&:populate_json)
 		result.sort_by(&:name)
+	end
+
+	def configure_environment
+		@source = __dir__
+		def append_includes(*files)
+			files.collect { |file| File.join(@source, 'includes', file) }
+		end
+		@stylesheets = append_includes('DataTables/datatables.min.css')
+		@scripts = append_includes('DataTables/datatables.min.js')
 	end
 
 	def execute

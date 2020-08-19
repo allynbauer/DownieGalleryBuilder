@@ -4,30 +4,41 @@
     <meta charset="utf-8" />
     <title><%= @options.title || "Gallery" %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <% @stylesheets.each do |s| %>
+    <link rel="stylesheet" type="text/css" href="<%= s %>">
+    <% end %>
   </head>
   <body>
     <p>
-      <table>
+      <table id="gallery" class="display">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Location</th>
+            <th>Author</th>
+            <th>Date</th>
+            <th>Video</th>
+          </tr>
+        </thead>
+      <tbody>
+        <% @results.each do |r| %>
         <tr>
-          <th>Title</th>
-          <th>Location</th>
-          <th>Author</th>
-          <th>Date</th>
-          <th>Video</th>
+          <td><%= r.name %></td>
+          <td><%= r.location %></td>
+          <td><%= r.authors.join(",") %></td>
+          <td><%= r.prepareDate.strftime("%d %b %Y %H:%M:%S") %></td>
+          <td>
+            <video controls muted poster="<%= r.image %>" width="600">
+              <source src="<%= r.video %>" type="video/mp4">
+          </td>
         </tr>
-      <% @results.each do |r| %>
-      <tr>
-        <td><%= r.name %></td>
-        <td><%= r.location %></td>
-        <td><%= r.authors.join(",") %></td>
-        <td><%= r.prepareDate.strftime("%d %b %Y %H:%M:%S") %></td>
-        <td>
-          <video controls muted poster="<%= r.image %>" width="600">
-            <source src="<%= r.video %>" type="video/mp4">
-        </td>
-      </tr>
-      <% end %>
+        <% end %>        
+      </tbody>
     </table>
   </p>
+  <% @scripts.each do |s| %>
+  <script type="text/javascript" charset="utf8" src="<%= s %>"></script>
+  <% end  %>
+  <script>$(document).ready( function () { $('#gallery').DataTable({responsive: true})} );</script>
   </body>
 </html>
