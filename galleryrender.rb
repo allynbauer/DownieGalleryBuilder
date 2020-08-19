@@ -36,6 +36,7 @@ class GalleryRenderer
 		opts.on('-h', '--help')  { output_help }
 		opts.on('-i', '--input FILE') { |file| @options.input = file }
 		opts.on('-o', '--output FILE') { |file| @options.output = file }
+		opts.on('-t', '--title TITLE') { |title| @options.title = title }
 		
 		opts.parse!(@arguments) rescue return false
 		true
