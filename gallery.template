@@ -19,7 +19,7 @@
             <th>Title</th>
             <th>Location</th>
             <th>Author</th>
-            <th>Date</th>
+            <th>Download Date</th>
             <th>Video</th>
           </tr>
         </thead>
@@ -37,6 +37,16 @@
         </tr>
         <% end %>        
       </tbody>
+      <tfoot>
+          <tr>
+            <th></th>
+            <th>Title</th>
+            <th>Location</th>
+            <th>Author</th>
+            <th>Download Date</th>
+            <th>Video</th>
+          </tr>
+        </tfoot>
     </table>
   </p>
   <script>$(document).ready( function () { $('#gallery').DataTable({responsive: true})} );</script>
