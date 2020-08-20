@@ -91,14 +91,14 @@ class GalleryRenderer
 	end
 
 	def configure_environment
-		@source = __dir__
+		@source = File.expand_path(File.join(__dir__, '..'))
 		def append_includes(*files)
 			files.collect { |file| File.join(@source, 'includes', file) }
 		end
 		@stylesheets = append_includes('DataTables/datatables.min.css')
 		@scripts = append_includes('DataTables/datatables.min.js')
 	end
-
+	
 	def execute
 		if @options.input.nil? || @options.output.nil?
 			puts "Unknown/invalid arguments."
@@ -113,6 +113,5 @@ class GalleryRenderer
 end
 
 if __FILE__ == $0
-	x = GalleryRenderer.new(ARGV)
-	x.run
+	puts("Loaded #{GalleryRenderer}")
 end
