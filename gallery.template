@@ -7,6 +7,9 @@
     <% @stylesheets.each do |s| %>
     <link rel="stylesheet" type="text/css" href="<%= s %>">
     <% end %>
+    <% @scripts.each do |s| %>
+    <script type="text/javascript" charset="utf8" src="<%= s %>"></script>
+    <% end  %>
   </head>
   <body>
     <p>
@@ -36,9 +39,6 @@
       </tbody>
     </table>
   </p>
-  <% @scripts.each do |s| %>
-  <script type="text/javascript" charset="utf8" src="<%= s %>"></script>
-  <% end  %>
   <script>$(document).ready( function () { $('#gallery').DataTable({responsive: true})} );</script>
   </body>
 </html>
