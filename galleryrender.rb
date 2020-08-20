@@ -65,11 +65,17 @@ class GalleryRenderer
 		ERB.new(@template).result(binding)
 	end
 
+	def each_gallery_item
+		Dir[File.join(@options.input, '**', "*.*")].each do |path|
+			key = DownieResult.name(path)
+			yield path, key
+		end
+	end
+
 	def load
 		candidates = {}
-
-		Dir[File.join(@options.input, '**', "*.*")].each do |path|
-			element = candidates[DownieResult.name(path)]
+		each_gallery_item do |path, key|
+			element = candidates[key]
 			if element.nil?
 				element = DownieResult.new(path, @options.input)
 				candidates[element.name] = element
