@@ -9,7 +9,7 @@ A simple ruby script which processes results from the OS X app [*Downie 4*](http
 1. Download this repository.
 1. `cd` into the directory for this repository.
 1. Run the script:
-`ruby galleryrenderer.rb -i ~/Documents/Incoming -o ~/Desktop/gallery.html`
+`ruby build.rb -i ~/Documents/Incoming -o ~/Desktop/gallery.html`
 
 ### Flags
 - `-i` **(Required)** Input directory (where Downie saves files)
