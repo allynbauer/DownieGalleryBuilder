@@ -5,7 +5,7 @@ require 'ostruct'
 require 'erb'
 require 'json'
 require 'date'
-require './result.rb'
+require_relative 'result'
 
 class GalleryRenderer
 	include ERB::Util
@@ -17,7 +17,8 @@ class GalleryRenderer
 	def initialize(arguments = "")
 		@arguments = arguments
 		@options = OpenStruct.new
-		@template = File.open('gallery.template').read
+		template = File.join(__dir__, 'gallery.template')
+		@template = File.open(template).read
 	end
 	
 	def run
