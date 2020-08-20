@@ -13,5 +13,5 @@ A simple ruby script which processes results from the OS X app [*Downie 4*](http
 
 ### Flags
 - `-i` **(Required)** Input directory (where Downie saves files)
-- `-o` **(Required)** Output html file
+- `-o` **(Required)** Output location (gallery.html appended if directory)
 - `-t` *(Optional)* Title of the resulting gallery

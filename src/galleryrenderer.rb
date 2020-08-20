@@ -38,7 +38,14 @@ class GalleryRenderer
 		opts.on('-v', '--version') { output_version; exit }
 		opts.on('-h', '--help')  { output_help }
 		opts.on('-i', '--input FILE') { |file| @options.input = file }
-		opts.on('-o', '--output FILE') { |file| @options.output = file }
+		opts.on('-o', '--output FILE') { |file|
+			isDirectory = File.directory?(file)
+			if isDirectory
+				@options.output = File.join(file, 'gallery.html')
+			else
+				@options.output = file
+			end
+		}
 		opts.on('-t', '--title TITLE') { |title| @options.title = title }
 		
 		opts.parse!(@arguments) rescue return false
