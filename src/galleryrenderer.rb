@@ -6,11 +6,13 @@ require 'erb'
 require 'json'
 require 'date'
 require_relative 'result'
+require_relative 'downie_helpers'
 
 class GalleryRenderer
 	include ERB::Util
 
 	VERSION = '1.0.0'
+	DEFAULT_OUTPUT_FILE = "gallery.html"
 
 	attr_reader :options
 	
@@ -37,17 +39,16 @@ class GalleryRenderer
 		opts = OptionParser.new
 		opts.on('-v', '--version') { output_version; exit }
 		opts.on('-h', '--help')  { output_help }
-		opts.on('-i', '--input FILE') { |file| @options.input = file }
-		opts.on('-o', '--output FILE') { |file|
+		opts.on('-i', '--input DIR') { |file| @options.input = file }
+		opts.on('-o', '--output DIR_OR_FILE') { |file|
 			isDirectory = File.directory?(file)
 			if isDirectory
-				@options.output = File.join(file, 'gallery.html')
+				@options.output = File.join(file, DEFAULT_OUTPUT_FILE)
 			else
 				@options.output = file
 			end
 		}
 		opts.on('-t', '--title TITLE') { |title| @options.title = title }
-		
 		opts.parse!(@arguments) rescue return false
 		true
 	end
@@ -97,7 +98,22 @@ class GalleryRenderer
 		result.sort_by(&:name)
 	end
 
+	def has_invalid_input
+		@options.input.nil?
+	end
+
+	def has_invalid_output
+		@options.output.nil?
+	end
+
 	def configure_environment
+		if has_invalid_input
+			helper = DownieHelpers.new
+			@options.input = helper.download_folder_path
+		end
+		if has_invalid_output
+			@options.output = File.expand_path(File.join("~", "Desktop", DEFAULT_OUTPUT_FILE))
+		end
 		@source = File.expand_path(File.join(__dir__, '..'))
 		def append_includes(*files)
 			files.collect { |file| File.join(@source, 'includes', file) }

@@ -9,9 +9,11 @@ A simple ruby script which processes results from the OS X app [*Downie 4*](http
 1. Download this repository.
 1. `cd` into the directory for this repository.
 1. Run the script:
-`ruby build.rb -i ~/Documents/Incoming -o ~/Desktop/gallery.html`
+`ruby build.rb`
 
 ### Flags
-- `-i` **(Required)** Input directory (where Downie saves files)
-- `-o` **(Required)** Output location (gallery.html appended if directory)
-- `-t` *(Optional)* Title of the resulting gallery
+All flags are optional.
+
+- `-i` *(Optional)* Input directory (Default: The directory where Downie 4 is configured to save files)
+- `-o` *(Optional)* Output location (Directory or specific file; Default: `~/Desktop/gallery.html`)
+- `-t` *(Optional)* Title of the resulting gallery (Default: Gallery)
