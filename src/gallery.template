@@ -16,12 +16,16 @@
       <table id="gallery" class="display nowrap" style="width:100%">
         <thead>
           <tr>
-            <th></th>
-            <th>Title</th>
-            <th>Location</th>
-            <th>Author</th>
-            <th>Download Date</th>
-            <th>Video</th>
+            <th rowspan="2"></th>
+            <th rowspan="2">Title</th>
+            <th rowspan="2">Location</th>
+            <th rowspan="2">Author</th>
+            <th colspan="2">Download On</th>
+            <th rowspan="2">Video</th>
+          </tr>
+          <tr>
+            <th>Day</th>
+            <th>Time</th>
           </tr>
         </thead>
       <tbody>
@@ -31,7 +35,8 @@
           <td><%= r.name %></td>
           <td><%= r.location %></td>
           <td><%= r.authors.empty? ? "<em>Unknown</em>" : r.authors.join(",") %></td>
-          <td><%= r.prepareDate.strftime("%d %b %Y %H:%M:%S") %></td>
+          <td><%= r.prepareDate.strftime("%d %b %Y") %></td>
+          <td><%= r.prepareDate.strftime("%H:%M:%S") %></td>
           <td>
             <video controls muted poster="<%= r.image %>" width="600">
               <source src="<%= r.video %>" type="video/mp4">
@@ -40,13 +45,17 @@
         <% end %>        
       </tbody>
       <tfoot>
+         <tr>
+            <th rowspan="2"></th>
+            <th rowspan="2">Title</th>
+            <th rowspan="2">Location</th>
+            <th rowspan="2">Author</th>
+            <th colspan="2">Download On</th>
+            <th rowspan="2">Video</th>
+          </tr>
           <tr>
-            <th></th>
-            <th>Title</th>
-            <th>Location</th>
-            <th>Author</th>
-            <th>Download Date</th>
-            <th>Video</th>
+            <th>Day</th>
+            <th>Time</th>
           </tr>
         </tfoot>
     </table>
@@ -54,6 +63,8 @@
   <script>
     $(document).ready(
       function () {
+        $.fn.dataTable.moment('%d %b %Y');
+        $.fn.dataTable.moment('%H:%M:%S');
         var gallery = $('#gallery').DataTable({
           responsive: true,
           buttons: ['searchPanes'],
@@ -61,10 +72,11 @@
           pagingType: 'first_last_numbers',
           lengthMenu: [ [10, 50, 250, -1], [10, 50, 250, "All"] ],
           columnDefs: [ {
-            searchable: false,
-            orderable: false,
-            targets: 0
-          } ],
+              searchable: false,
+              orderable: false,
+              targets: 0
+            }
+          ],
           order: [[ 1, 'asc' ]],
           language: {
             searchPanes: {

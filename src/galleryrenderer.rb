@@ -103,7 +103,7 @@ class GalleryRenderer
 			files.collect { |file| File.join(@source, 'includes', file) }
 		end
 		@stylesheets = append_includes('DataTables/datatables.min.css')
-		@scripts = append_includes('DataTables/datatables.min.js')
+		@scripts = append_includes('DataTables/datatables.min.js', 'DataTables/Moment-2.8.4/moment.min.js', 'DataTables/Moment-2.8.4/datetime-moment.js')
 	end
 	
 	def execute
